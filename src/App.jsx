@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HashRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link, NavLink, useParams } from "react-router-dom";
 import "./App.css";
 
 function BooksList() {
@@ -8,17 +8,15 @@ function BooksList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    document.title = "Seuss Treasury - Books";
     fetch("https://seussology.info/api/books")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load books.");
-        return res.json();
-      })
+      .then((res) => res.ok ? res.json() : Promise.reject("Failed to load books."))
       .then((data) => {
         setBooks(data);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err);
         setLoading(false);
       });
   }, []);
@@ -48,16 +46,14 @@ function BookInfo() {
 
   useEffect(() => {
     fetch(`https://seussology.info/api/books/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Book not found.");
-        return res.json();
-      })
+      .then((res) => res.ok ? res.json() : Promise.reject("Book not found."))
       .then((data) => {
         setBook(data);
+        document.title = `Seuss Treasury - ${data.title}`;
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err);
         setLoading(false);
       });
   }, [id]);
@@ -75,22 +71,23 @@ function BookInfo() {
 }
 
 function QuotesSection() {
+  useEffect(() => {
+    document.title = "Seuss Treasury - Quotes";
+  }, []);
+
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("https://seussology.info/api/quotes/random/10")
-      .then((res) => {
-        if (!res.ok) throw new Error("Could not fetch quotes.");
-        return res.json();
-      })
+      .then((res) => res.ok ? res.json() : Promise.reject("Could not fetch quotes."))
       .then((data) => {
         setQuotes(data);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err);
         setLoading(false);
       });
   }, []);
@@ -116,12 +113,20 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        {/* Site Title */}
+        <header>
+          <h1 className="site-title">Seuss Treasury</h1>
+        </header>
+
+        {/* Navigation Bar */}
         <nav className="nav-bar">
-          <Link to="/books">Book Collection</Link>
-          <Link to="/quotes">Quotes Archive</Link>
+          <NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "")}>Book Collection</NavLink>
+          <NavLink to="/quotes" className={({ isActive }) => (isActive ? "active-link" : "")}>Quotes Archive</NavLink>
         </nav>
+
+        {/* Page Routes */}
         <Routes>
-          <Route path="/books" element={<BooksList />} />
+          <Route path="/" element={<BooksList />} />
           <Route path="/books/:id" element={<BookInfo />} />
           <Route path="/quotes" element={<QuotesSection />} />
         </Routes>

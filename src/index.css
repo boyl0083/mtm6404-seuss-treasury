@@ -114,7 +114,7 @@ button:focus-visible {
 
 .books-wrapper {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);  /* Default: 5 columns */
+  grid-template-columns: repeat(6, 1fr);  /* Default: 5 columns */
   gap: 20px;
   padding: 10px;
 }
