@@ -1,7 +1,9 @@
+/* Root Styles */
+
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Avenir', 'Helvetica', 'Arial', sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -15,46 +17,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+/* Light mode overrides */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -67,4 +30,181 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Global styles */
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: inherit;
+}
+
+/* Navigation Bar */
+
+.nav-bar {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nav-bar a {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-bar a:hover {
+  color: #535bf2;
+}
+
+/* Headings */
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 20px 0;
+}
+
+/* Links */
+
+a {
+  font-weight: 500;
+  color: #e19ffd;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* Buttons */
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #e19ffd;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Books Grid */
+
+.books-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  /* Default: 5 columns */
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Responsive Books Grid */
+
+@media (max-width: 1400px) {
+  .books-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .books-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .books-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .books-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Book Items */
+
+.book-link {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.book-img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.book-img:hover {
+  transform: scale(1.05);
+}
+
+/* Book Details */
+
+.book-details {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 2px solid white;
+}
+
+.book-details h2 {
+  font-size: 2em;
+  color: #e19ffd;
+}
+
+.book-details img {
+  display: block;
+  margin: 20px auto;
+  width: 150px;
+  height: auto;
+}
+
+/* Quotes Section */
+
+ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Center the quotes horizontally */
+  justify-content: center;
+  gap: 5px;  /* Reduced spacing between quotes */
+  width: 80%;
+}
+
+ul li {
+  font-size: 1.1rem;
+  color: #444;
+  background: #fff;
+  padding: 10px;
+  margin: 10px auto;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
